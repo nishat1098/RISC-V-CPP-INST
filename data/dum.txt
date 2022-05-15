@@ -1,0 +1,15 @@
+if (!isHashThere(line))
+    {
+
+      stringstream s(x);
+      string inst;
+      s >> inst;
+
+      if (find(valid.begin(), valid.end(), inst) != valid.end())
+      {
+        if (inst == "add" || inst == "sub")
+        {
+          addSubChecker(line);
+        }
+      }
+    }
