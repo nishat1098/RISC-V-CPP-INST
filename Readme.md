@@ -1,7 +1,7 @@
 ## Initial Requiremnts
 
 - Install GNU GCC Compiler in your machine
-- Download the repository
+- Download the repository https://github.com/nishat1098/RISC-V-CPP-INST
 - Unzip the Library
 - Run following commands
 
@@ -10,7 +10,7 @@
 ```cmd
 cd RISC-V-CPP-INST
 
-g++ src/main.cpp -o build/out.exe
+g++ src/final.cpp -o build/out.exe
 
 cd build
 
