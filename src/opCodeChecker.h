@@ -6,12 +6,14 @@ using namespace std;
 class StringOperations
 {
 protected:
+  // this function removes spaces from string
   string removeSpaces(string str)
   {
     str.erase(remove(str.begin(), str.end(), ' '), str.end());
     return str;
   }
 
+  // defines if a string is made of digits or not
   bool isValidNumber(string a)
   {
     bool isit = true;
@@ -26,6 +28,8 @@ protected:
     // return regex_match(a, b);
     return isit;
   }
+
+  // is there any middle or start hash in the OP code
   bool isHashThere(string a)
   {
     for (int i = 0; i < a.length(); i++)
@@ -47,6 +51,7 @@ protected:
     return false;
   }
 
+  // is the hash sign in the end of an op code
   bool isHashEnd(string a)
   {
     int cnt = 0;
@@ -68,6 +73,8 @@ protected:
     }
     return (cnt == dum.length());
   }
+
+  // remove the trailing hash so that the op code is properly matched
   string removeHashEnd(string a)
   {
     string res;
@@ -88,20 +95,25 @@ protected:
   }
 };
 
-class OpCodeChecker : public StringOperations
+class OpCodeChecker : protected StringOperations
 {
 private:
+  // accepted commands for RISC-V
   vector<string> valid{"add", "addi", "la", "li", "sub", "subi", "ecall"};
+
+  // valid registers name
   vector<string> validReg{"x0", "x1", "x2", "x3", "x4", "x5", "x6", "x7", "x8", "x9", "x10", "x11", "x12", "x13", "x14", "x15", "x16", "x17", "x18", "x19", "x20", "x21", "x22", "x23", "x24", "x25", "x26", "x27", "x28", "x29", "x30", "x31", "zero", "ra", "sp", "gp", "tp", "t0", "t1", "t2", "t3", "t4", "t5", "t6", "s0", "s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11", "a0", "a1", "a2", "a3", "a4", "a5", "a6", "a7"};
 
   vector<string> input, output;
 
 protected:
+  // is the input opcode is valid or not
   bool isValidOPCode(string a)
   {
     return (find(validReg.begin(), validReg.end(), a) != validReg.end());
   }
 
+  // the main function to check the command validity
   bool addSubChecker(string a)
   {
     string b;
@@ -139,6 +151,7 @@ protected:
   }
 
 public:
+  // public function to take file path input and provide output accordingly
   void checkPrint(string path)
   {
     ifstream infile(path);
@@ -150,12 +163,12 @@ public:
         input.push_back(line);
         transform(line.begin(), line.end(), line.begin(), ::tolower);
         string x = line;
-        if (isHashEnd(line))
-          x = removeHashEnd(line);
+        // if (isHashEnd(line))
+        x = removeHashEnd(line);
         output.push_back(x);
       }
     }
-    //
+    // for checking and printing
     for (int i = 0; i < output.size(); i++)
     {
       stringstream s(output[i]);
@@ -171,7 +184,7 @@ public:
             cout << input[i] << "\n";
           }
         }
-        else if (inst == "ecall")
+        else if (inst == "ecall") // as ecall only takes one parameter
           cout << input[i] << "\n";
       }
     }
